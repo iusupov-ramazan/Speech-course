@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Голос — Презентация и ораторское искусство</title>
+<meta name="description" content="Курс презентации и ораторского искусства. Улан Ибраимов и Тимерлан Макешев. Пишите в WhatsApp.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;800&family=Manrope:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#07070b;
+  --bg2:#0e0e16;
+  --fg:#f4f2ff;
+  --muted:#9a97b0;
+  --line:rgba(255,255,255,.08);
+  --a:#7c5cff;
+  --b:#ff4fa3;
+  --c:#2de2c4;
+  --wa:#25d366;
+  --radius:24px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);color:var(--fg);
+  font-family:"Manrope",system-ui,sans-serif;
+  overflow-x:hidden;line-height:1.6;
+}
+a{color:inherit;text-decoration:none}
+::selection{background:var(--b);color:#fff}
+
+/* ---------- noise + cursor glow ---------- */
+body::before{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:100;opacity:.05;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+.glow{
+  position:fixed;width:520px;height:520px;border-radius:50%;pointer-events:none;z-index:0;
+  background:radial-gradient(circle,rgba(124,92,255,.22),transparent 60%);
+  transform:translate(-50%,-50%);transition:opacity .3s;left:50%;top:30%;
+}
+@media (hover:none){.glow{display:none}}
+
+/* ---------- progress bar ---------- */
+.progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:60;
+  background:linear-gradient(90deg,var(--a),var(--b),var(--c))}
+
+/* ---------- nav ---------- */
+nav{
+  position:fixed;top:16px;left:50%;transform:translateX(-50%);z-index:50;
+  display:flex;align-items:center;gap:28px;
+  padding:10px 10px 10px 22px;border-radius:999px;
+  background:rgba(20,20,30,.55);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+  border:1px solid var(--line);width:min(920px,calc(100% - 32px));justify-content:space-between;
+}
+.logo{font-family:"Unbounded";font-weight:800;letter-spacing:.02em;display:flex;align-items:center;gap:10px}
+.logo i{width:10px;height:10px;border-radius:50%;background:var(--b);box-shadow:0 0 14px var(--b);animation:pulse 1.6s infinite}
+@keyframes pulse{50%{transform:scale(1.6);opacity:.5}}
+.links{display:flex;gap:22px;font-size:14px;color:var(--muted)}
+.links a:hover{color:var(--fg)}
+@media(max-width:760px){.links{display:none}}
+
+.btn{
+  display:inline-flex;align-items:center;gap:10px;font-weight:700;
+  padding:14px 24px;border-radius:999px;position:relative;overflow:hidden;
+  transition:transform .25s cubic-bezier(.2,.8,.2,1);white-space:nowrap;
+}
+.btn:hover{transform:translateY(-2px) scale(1.03)}
+.btn-wa{background:var(--wa);color:#04210f;box-shadow:0 10px 40px -10px var(--wa)}
+.btn-wa::after{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(110deg,transparent 30%,rgba(255,255,255,.55) 50%,transparent 70%);
+  transform:translateX(-100%);animation:shine 3s infinite;
+}
+@keyframes shine{60%,100%{transform:translateX(100%)}}
+.btn-ghost{border:1px solid var(--line);background:rgba(255,255,255,.04)}
+.btn-sm{padding:10px 18px;font-size:14px}
+.btn svg{width:20px;height:20px;flex:none}
+
+/* ---------- hero ---------- */
+.hero{
+  min-height:100svh;display:grid;place-items:center;text-align:center;
+  position:relative;padding:140px 16px 80px;overflow:hidden;
+}
+#wave{position:absolute;inset:0;width:100%;height:100%;z-index:0;opacity:.9}
+.orb{position:absolute;border-radius:50%;filter:blur(80px);opacity:.55;z-index:0;animation:float 14s ease-in-out infinite}
+.orb.o1{width:420px;height:420px;background:var(--a);top:-120px;left:-80px}
+.orb.o2{width:360px;height:360px;background:var(--b);bottom:-120px;right:-60px;animation-delay:-5s}
+.orb.o3{width:240px;height:240px;background:var(--c);top:40%;left:60%;animation-delay:-9s;opacity:.3}
+@keyframes float{50%{transform:translate(40px,-30px) scale(1.1)}}
+.hero-inner{position:relative;z-index:2;max-width:1100px}
+.tag{
+  display:inline-flex;align-items:center;gap:10px;padding:8px 16px;border-radius:999px;
+  border:1px solid var(--line);background:rgba(255,255,255,.04);font-size:13px;color:var(--muted);
+  margin-bottom:28px;
+}
+.tag b{width:8px;height:8px;border-radius:50%;background:var(--c);box-shadow:0 0 10px var(--c)}
+h1{
+  font-family:"Unbounded";font-weight:800;line-height:1.02;letter-spacing:-.03em;
+  font-size:clamp(40px,9vw,128px);text-transform:uppercase;
+}
+h1 .line{display:block;overflow:hidden}
+h1 .line span{display:inline-block;transform:translateY(110%);animation:rise 1s cubic-bezier(.2,.8,.2,1) forwards}
+h1 .line:nth-child(2) span{animation-delay:.12s}
+h1 .line:nth-child(3) span{animation-delay:.24s}
+@keyframes rise{to{transform:none}}
+.grad{
+  background:linear-gradient(90deg,var(--a),var(--b),var(--c),var(--a));background-size:300% 100%;
+  -webkit-background-clip:text;background-clip:text;color:transparent;animation:flow 6s linear infinite;
+}
+@keyframes flow{to{background-position:300% 0}}
+.outline{-webkit-text-stroke:1.5px rgba(255,255,255,.6);color:transparent}
+.hero p.lead{
+  max-width:640px;margin:28px auto 36px;color:var(--muted);font-size:clamp(16px,2vw,19px);
+  opacity:0;animation:fade 1s .6s forwards;
+}
+.hero .cta{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;opacity:0;animation:fade 1s .8s forwards}
+@keyframes fade{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+.typed{color:var(--fg);font-weight:700;border-right:2px solid var(--b);padding-right:4px;animation:caret .8s steps(1) infinite}
+@keyframes caret{50%{border-color:transparent}}
+.scroll-hint{position:absolute;bottom:28px;left:50%;transform:translateX(-50%);z-index:2;
+  width:26px;height:42px;border:2px solid var(--line);border-radius:20px}
+.scroll-hint::after{content:"";position:absolute;left:50%;top:8px;width:4px;height:8px;border-radius:2px;
+  background:var(--fg);transform:translateX(-50%);animation:wheel 1.6s infinite}
+@keyframes wheel{to{transform:translate(-50%,14px);opacity:0}}
+
+/* ---------- marquee ---------- */
+.marquee{border-block:1px solid var(--line);overflow:hidden;padding:22px 0;background:var(--bg2);position:relative;z-index:2}
+.track{display:flex;gap:48px;width:max-content;animation:scroll 30s linear infinite}
+.track span{font-family:"Unbounded";font-size:clamp(20px,3vw,34px);font-weight:600;white-space:nowrap;display:flex;align-items:center;gap:48px}
+.track span::after{content:"✦";color:var(--b)}
+.track span:nth-child(even){color:transparent;-webkit-text-stroke:1px rgba(255,255,255,.5)}
+@keyframes scroll{to{transform:translateX(-50%)}}
+
+/* ---------- sections ---------- */
+section{position:relative;z-index:2;padding:120px 16px}
+.wrap{max-width:1180px;margin:0 auto}
+.eyebrow{font-size:13px;letter-spacing:.2em;text-transform:uppercase;color:var(--c);margin-bottom:16px;display:block}
+h2{font-family:"Unbounded";font-size:clamp(30px,5vw,60px);line-height:1.08;letter-spacing:-.02em;margin-bottom:24px}
+.sub{color:var(--muted);max-width:620px;font-size:18px}
+
+.reveal{opacity:0;transform:translateY(40px);transition:opacity .9s cubic-bezier(.2,.8,.2,1),transform .9s cubic-bezier(.2,.8,.2,1)}
+.reveal.in{opacity:1;transform:none}
+.reveal.tilt{transition:opacity .9s cubic-bezier(.2,.8,.2,1),transform .5s cubic-bezier(.2,.8,.2,1),border-color .3s}
+
+/* ---------- features bento ---------- */
+.bento{display:grid;grid-template-columns:repeat(6,1fr);gap:16px;margin-top:56px}
+.card{
+  background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.015));
+  border:1px solid var(--line);border-radius:var(--radius);padding:32px;position:relative;overflow:hidden;
+  transition:border-color .3s,transform .3s;transform-style:preserve-3d;
+}
+.card:hover{border-color:rgba(255,255,255,.2)}
+.card::before{
+  content:"";position:absolute;inset:0;opacity:0;transition:opacity .3s;
+  background:radial-gradient(400px circle at var(--mx,50%) var(--my,50%),rgba(124,92,255,.18),transparent 40%);
+}
+.card:hover::before{opacity:1}
+.card .ic{width:56px;height:56px;border-radius:16px;display:grid;place-items:center;font-size:26px;margin-bottom:22px;
+  background:linear-gradient(135deg,var(--a),var(--b))}
+.card h3{font-family:"Unbounded";font-size:20px;margin-bottom:10px;font-weight:600}
+.card p{color:var(--muted)}
+.c1{grid-column:span 4}.c2{grid-column:span 2}.c3{grid-column:span 2}.c4{grid-column:span 2}.c5{grid-column:span 2}
+@media(max-width:900px){.bento{grid-template-columns:1fr}.bento .card{grid-column:auto}}
+.mini-wave{display:flex;align-items:flex-end;gap:5px;height:70px;margin-top:26px}
+.mini-wave i{flex:1;background:linear-gradient(to top,var(--a),var(--b));border-radius:4px;animation:eq 1.2s ease-in-out infinite}
+@keyframes eq{0%,100%{height:15%}50%{height:100%}}
+
+/* ---------- program / steps ---------- */
+.steps{margin-top:56px;display:grid;gap:14px}
+.step{
+  display:grid;grid-template-columns:90px 1fr auto;align-items:center;gap:24px;
+  padding:28px 32px;border:1px solid var(--line);border-radius:var(--radius);
+  transition:background .4s,padding .4s;cursor:default;
+}
+.step:hover{background:rgba(255,255,255,.04);padding-left:44px}
+.step .n{font-family:"Unbounded";font-size:38px;font-weight:800;color:transparent;-webkit-text-stroke:1px var(--muted);transition:color .3s}
+.step:hover .n{color:var(--b);-webkit-text-stroke-color:var(--b)}
+.step h4{font-family:"Unbounded";font-size:20px;font-weight:600;margin-bottom:4px}
+.step p{color:var(--muted)}
+.step .arr{font-size:26px;transition:transform .3s}
+.step:hover .arr{transform:rotate(-45deg)}
+@media(max-width:640px){.step{grid-template-columns:1fr;gap:8px}.step .arr{display:none}}
+
+/* ---------- trainers ---------- */
+.team{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:56px}
+@media(max-width:820px){.team{grid-template-columns:1fr}}
+.person{
+  border-radius:32px;padding:40px;position:relative;overflow:hidden;min-height:440px;
+  display:flex;flex-direction:column;justify-content:flex-end;border:1px solid var(--line);
+  background:var(--bg2);transition:transform .2s ease-out;
+}
+.person .bgname{
+  position:absolute;top:24px;left:-10px;font-family:"Unbounded";font-weight:800;font-size:120px;line-height:.9;
+  color:transparent;-webkit-text-stroke:1px rgba(255,255,255,.07);white-space:nowrap;pointer-events:none;
+  animation:drift 18s linear infinite alternate;
+}
+@keyframes drift{to{transform:translateX(-30%)}}
+.avatar{
+  width:120px;height:120px;border-radius:50%;margin-bottom:auto;position:relative;
+  display:grid;place-items:center;font-family:"Unbounded";font-size:40px;font-weight:800;
+}
+.avatar::before{
+  content:"";position:absolute;inset:-4px;border-radius:50%;
+  background:conic-gradient(var(--a),var(--b),var(--c),var(--a));animation:spin 4s linear infinite;
+}
+.avatar::after{content:"";position:absolute;inset:2px;border-radius:50%;background:var(--bg2)}
+.avatar span{position:relative;z-index:1}
+@keyframes spin{to{transform:rotate(360deg)}}
+.person h3{font-family:"Unbounded";font-size:clamp(26px,3.4vw,38px);line-height:1.1;margin:28px 0 8px}
+.person .role{color:var(--muted);margin-bottom:24px}
+.person .row{display:flex;gap:10px;flex-wrap:wrap}
+.chip{display:inline-flex;align-items:center;gap:8px;padding:10px 16px;border-radius:999px;font-size:14px;font-weight:700;
+  border:1px solid var(--line);background:rgba(255,255,255,.04);transition:background .3s,border-color .3s}
+.chip:hover{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.25)}
+.chip svg{width:18px;height:18px}
+.chip.ig:hover{background:linear-gradient(45deg,#f9ce34,#ee2a7b,#6228d7);border-color:transparent}
+.chip.wa:hover{background:var(--wa);color:#04210f;border-color:transparent}
+
+/* ---------- formats ---------- */
+.formats{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:56px}
+@media(max-width:900px){.formats{grid-template-columns:1fr}}
+.fmt{padding:36px;border-radius:var(--radius);border:1px solid var(--line);position:relative;overflow:hidden;
+  background:linear-gradient(180deg,rgba(255,255,255,.04),transparent)}
+.fmt.hot{border-color:transparent;background:
+  linear-gradient(var(--bg2),var(--bg2)) padding-box,
+  linear-gradient(135deg,var(--a),var(--b),var(--c)) border-box;border:1.5px solid transparent}
+.fmt .badge{position:absolute;top:20px;right:20px;font-size:12px;padding:6px 12px;border-radius:999px;background:var(--b);font-weight:700}
+.fmt h3{font-family:"Unbounded";font-size:22px;margin-bottom:12px}
+.fmt ul{list-style:none;margin:20px 0 28px;display:grid;gap:10px;color:var(--muted)}
+.fmt li::before{content:"→ ";color:var(--c)}
+
+/* ---------- final CTA ---------- */
+.final{text-align:center;padding:160px 16px;overflow:hidden}
+.final h2{font-size:clamp(40px,8vw,110px);text-transform:uppercase;line-height:1}
+.ring{position:absolute;left:50%;top:50%;border:1px solid var(--line);border-radius:50%;transform:translate(-50%,-50%);animation:ripple 6s linear infinite;pointer-events:none}
+@keyframes ripple{from{width:0;height:0;opacity:1}to{width:1400px;height:1400px;opacity:0}}
+.phone{font-family:"Unbounded";font-size:clamp(22px,3vw,32px);margin:24px 0 40px;display:inline-block}
+.phone:hover{color:var(--wa)}
+
+footer{border-top:1px solid var(--line);padding:40px 16px;color:var(--muted);font-size:14px;position:relative;z-index:2}
+footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+footer a:hover{color:var(--fg)}
+
+/* ---------- floating WhatsApp ---------- */
+.fab{
+  position:fixed;right:20px;bottom:20px;z-index:70;width:62px;height:62px;border-radius:50%;
+  background:var(--wa);display:grid;place-items:center;box-shadow:0 10px 30px -5px rgba(37,211,102,.6);
+  transition:transform .3s;
+}
+.fab:hover{transform:scale(1.1) rotate(-8deg)}
+.fab::before{content:"";position:absolute;inset:0;border-radius:50%;border:2px solid var(--wa);animation:ping 2s infinite}
+@keyframes ping{to{transform:scale(1.8);opacity:0}}
+.fab svg{width:32px;height:32px;fill:#fff}
+.fab .tip{position:absolute;right:76px;background:#fff;color:#111;font-size:13px;font-weight:700;padding:8px 14px;border-radius:12px;white-space:nowrap;
+  opacity:0;transform:translateX(10px);transition:.3s;pointer-events:none}
+.fab:hover .tip{opacity:1;transform:none}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  h1 .line span{transform:none}.reveal{opacity:1;transform:none}
+  .hero p.lead,.hero .cta{opacity:1}
+}
+</style>
+</head>
+<body>
+
+<div class="progress" id="progress"></div>
+<div class="glow" id="glow"></div>
+
+<!-- SVG sprites -->
+<svg width="0" height="0" style="position:absolute">
+  <symbol id="i-wa" viewBox="0 0 24 24"><path fill="currentColor" d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.64.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.49-1.77-1.66-2.07-.17-.3-.02-.46.13-.6.13-.14.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.03-.52-.07-.15-.67-1.6-.92-2.2-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.48 0 1.46 1.07 2.88 1.21 3.07.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.7.63.71.22 1.36.19 1.87.12.57-.09 1.76-.72 2-1.41.25-.7.25-1.29.18-1.41-.07-.13-.27-.2-.57-.35M12.05 21.8h-.01a9.8 9.8 0 0 1-5-1.37l-.36-.21-3.72.98 1-3.63-.24-.37a9.8 9.8 0 0 1-1.5-5.22c0-5.42 4.41-9.83 9.84-9.83 2.62 0 5.09 1.03 6.94 2.88a9.77 9.77 0 0 1 2.88 6.96c0 5.42-4.41 9.83-9.83 9.83m8.37-18.2A11.75 11.75 0 0 0 12.05.13C5.5.13.17 5.46.17 12.01c0 2.1.55 4.14 1.58 5.94L.07 24l6.2-1.63a11.86 11.86 0 0 0 5.77 1.47h.01c6.55 0 11.88-5.33 11.88-11.88 0-3.17-1.24-6.16-3.48-8.4"/></symbol>
+  <symbol id="i-ig" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2.2c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41a3.7 3.7 0 0 1-1.38-.9 3.7 3.7 0 0 1-.9-1.38c-.16-.42-.36-1.06-.41-2.23C2.21 15.58 2.2 15.2 2.2 12s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.21 8.8 2.2 12 2.2M12 0C8.74 0 8.33.01 7.05.07 5.78.13 4.9.33 4.14.63c-.79.3-1.46.72-2.13 1.38A5.9 5.9 0 0 0 .63 4.14C.33 4.9.13 5.78.07 7.05.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.06 1.27.26 2.15.56 2.91.3.79.72 1.46 1.38 2.13a5.9 5.9 0 0 0 2.13 1.38c.76.3 1.64.5 2.91.56C8.33 23.99 8.74 24 12 24s3.67-.01 4.95-.07c1.27-.06 2.15-.26 2.91-.56a5.9 5.9 0 0 0 2.13-1.38 5.9 5.9 0 0 0 1.38-2.13c.3-.76.5-1.64.56-2.91.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.06-1.27-.26-2.15-.56-2.91a5.9 5.9 0 0 0-1.38-2.13A5.9 5.9 0 0 0 19.86.63C19.1.33 18.22.13 16.95.07 15.67.01 15.26 0 12 0m0 5.84a6.16 6.16 0 1 0 0 12.32 6.16 6.16 0 0 0 0-12.32M12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8m6.4-11.85a1.44 1.44 0 1 0 0 2.88 1.44 1.44 0 0 0 0-2.88"/></symbol>
+</svg>
+
+<nav>
+  <a href="#" class="logo"><i></i>ГОЛОС</a>
+  <div class="links">
+    <a href="#why">Почему мы</a>
+    <a href="#program">Программа</a>
+    <a href="#team">Тренеры</a>
+    <a href="#formats">Форматы</a>
+  </div>
+  <a class="btn btn-wa btn-sm wa-link" href="#" target="_blank" rel="noopener"><svg><use href="#i-wa"/></svg>WhatsApp</a>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <canvas id="wave"></canvas>
+  <div class="orb o1"></div><div class="orb o2"></div><div class="orb o3"></div>
+  <div class="hero-inner">
+    <div class="tag"><b></b>Набор открыт · пишите в WhatsApp</div>
+    <h1>
+      <span class="line"><span>Говори —</span></span>
+      <span class="line"><span class="grad">и тебя</span></span>
+      <span class="line"><span class="outline">услышат</span></span>
+    </h1>
+    <p class="lead">Курс презентации и ораторского искусства с Уланом Ибраимовым и Тимерланом Макешевым. Научим вас <span class="typed" id="typed"></span></p>
+    <div class="cta">
+      <a class="btn btn-wa wa-link" href="#" target="_blank" rel="noopener"><svg><use href="#i-wa"/></svg>Написать в WhatsApp</a>
+      <a class="btn btn-ghost" href="#program">Смотреть программу ↓</a>
+    </div>
+  </div>
+  <div class="scroll-hint"></div>
+</header>
+
+<div class="marquee">
+  <div class="track">
+    <span>Уверенность</span><span>Харизма</span><span>Сторителлинг</span><span>Слайды</span><span>Голос</span><span>Импровизация</span><span>Питч</span><span>Сцена</span>
+    <span>Уверенность</span><span>Харизма</span><span>Сторителлинг</span><span>Слайды</span><span>Голос</span><span>Импровизация</span><span>Питч</span><span>Сцена</span>
+  </div>
+</div>
+
+<!-- WHY -->
+<section id="why">
+  <div class="wrap">
+    <span class="eyebrow reveal">Почему это важно</span>
+    <h2 class="reveal">Ваши идеи стоят ровно<br>столько, <span class="grad">как вы их подаёте</span></h2>
+    <p class="sub reveal">Выступление на сцене, защита проекта, питч инвесторам или тост на свадьбе — везде побеждает тот, кто умеет держать внимание.</p>
+
+    <div class="bento">
+      <div class="card c1 reveal tilt">
+        <div class="ic">🎤</div>
+        <h3>Голос и подача</h3>
+        <p>Дыхание, дикция, темп и паузы. Сделаем ваш голос инструментом, который удерживает зал.</p>
+        <div class="mini-wave" id="eq"></div>
+      </div>
+      <div class="card c2 reveal tilt">
+        <div class="ic">🧠</div>
+        <h3>Страх сцены</h3>
+        <p>Практики, которые превращают волнение в энергию.</p>
+      </div>
+      <div class="card c3 reveal tilt">
+        <div class="ic">📊</div>
+        <h3>Сильные слайды</h3>
+        <p>Минимум текста, максимум смысла. Дизайн, который работает на вас.</p>
+      </div>
+      <div class="card c4 reveal tilt">
+        <div class="ic">📖</div>
+        <h3>Сторителлинг</h3>
+        <p>Истории, которые запоминают и пересказывают.</p>
+      </div>
+      <div class="card c5 reveal tilt">
+        <div class="ic">🙌</div>
+        <h3>Язык тела</h3>
+        <p>Жесты, взгляд, позиция на сцене — всё говорит за вас.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROGRAM -->
+<section id="program" style="background:var(--bg2)">
+  <div class="wrap">
+    <span class="eyebrow reveal">Программа</span>
+    <h2 class="reveal">Путь от «боюсь»<br>до <span class="grad">«дайте микрофон»</span></h2>
+    <div class="steps">
+      <div class="step reveal"><div class="n">01</div><div><h4>Диагностика</h4><p>Записываем ваше первое выступление и находим точки роста.</p></div><div class="arr">→</div></div>
+      <div class="step reveal"><div class="n">02</div><div><h4>Структура речи</h4><p>Сильное начало, логика, кульминация и финал, который запомнят.</p></div><div class="arr">→</div></div>
+      <div class="step reveal"><div class="n">03</div><div><h4>Голос и тело</h4><p>Техника речи, интонации, жесты и уверенная осанка.</p></div><div class="arr">→</div></div>
+      <div class="step reveal"><div class="n">04</div><div><h4>Презентация и слайды</h4><p>Собираем визуальную историю, которая усиливает каждое слово.</p></div><div class="arr">→</div></div>
+      <div class="step reveal"><div class="n">05</div><div><h4>Импровизация и вопросы</h4><p>Отвечаем на сложные вопросы спокойно и с юмором.</p></div><div class="arr">→</div></div>
+      <div class="step reveal"><div class="n">06</div><div><h4>Финальное выступление</h4><p>Выходите на сцену перед живой аудиторией и получаете обратную связь.</p></div><div class="arr">→</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- TEAM -->
+<section id="team">
+  <div class="wrap">
+    <span class="eyebrow reveal">Тренеры</span>
+    <h2 class="reveal">Те, кто <span class="grad">научат</span></h2>
+    <div class="team">
+      <article class="person reveal tilt">
+        <div class="bgname">УЛАН · УЛАН · УЛАН</div>
+        <div class="avatar"><span>УИ</span></div>
+        <h3>Улан<br>Ибраимов</h3>
+        <p class="role">Тренер по ораторскому искусству и презентациям</p>
+        <div class="row">
+          <a class="chip ig" href="https://www.instagram.com/ullanumar/" target="_blank" rel="noopener"><svg><use href="#i-ig"/></svg>@ullanumar</a>
+          <a class="chip wa wa-link" href="#" target="_blank" rel="noopener"><svg><use href="#i-wa"/></svg>+996 707 266 556</a>
+        </div>
+      </article>
+      <article class="person reveal tilt">
+        <div class="bgname">ТИМЕРЛАН · ТИМЕРЛАН</div>
+        <div class="avatar"><span>ТМ</span></div>
+        <h3>Тимерлан<br>Макешев</h3>
+        <p class="role">Тренер по ораторскому искусству и презентациям</p>
+        <div class="row">
+          <a class="chip ig" href="https://www.instagram.com/tima_m.v/" target="_blank" rel="noopener"><svg><use href="#i-ig"/></svg>@tima_m.v</a>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- FORMATS -->
+<section id="formats" style="background:var(--bg2)">
+  <div class="wrap">
+    <span class="eyebrow reveal">Форматы</span>
+    <h2 class="reveal">Выберите <span class="grad">свой формат</span></h2>
+    <p class="sub reveal">Стоимость, расписание и свободные места — уточняйте в WhatsApp.</p>
+    <div class="formats">
+      <div class="fmt reveal">
+        <h3>Групповой курс</h3>
+        <p style="color:var(--muted)">Практика в группе и живая аудитория на каждом занятии.</p>
+        <ul><li>Работа в команде</li><li>Регулярная практика</li><li>Финальное выступление</li></ul>
+        <a class="btn btn-ghost wa-link" href="#" target="_blank" rel="noopener" data-msg="Здравствуйте! Интересует групповой курс по ораторскому искусству.">Узнать подробнее</a>
+      </div>
+      <div class="fmt hot reveal">
+        <span class="badge">Популярно</span>
+        <h3>Индивидуально</h3>
+        <p style="color:var(--muted)">Персональная программа под вашу цель и ваш темп.</p>
+        <ul><li>Разбор ваших выступлений</li><li>Подготовка к конкретному событию</li><li>Гибкое расписание</li></ul>
+        <a class="btn btn-wa wa-link" href="#" target="_blank" rel="noopener" data-msg="Здравствуйте! Интересуют индивидуальные занятия по ораторскому искусству."><svg><use href="#i-wa"/></svg>Записаться</a>
+      </div>
+      <div class="fmt reveal">
+        <h3>Для команд</h3>
+        <p style="color:var(--muted)">Тренинги для компаний, школ и университетов.</p>
+        <ul><li>Корпоративные тренинги</li><li>Подготовка к питчам</li><li>Мастер-классы</li></ul>
+        <a class="btn btn-ghost wa-link" href="#" target="_blank" rel="noopener" data-msg="Здравствуйте! Интересует тренинг по презентации для команды.">Обсудить</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final">
+  <div class="ring"></div><div class="ring" style="animation-delay:-2s"></div><div class="ring" style="animation-delay:-4s"></div>
+  <div class="wrap" style="position:relative">
+    <span class="eyebrow reveal">Ваш ход</span>
+    <h2 class="reveal">Первый шаг —<br><span class="grad">одно сообщение</span></h2>
+    <p class="sub reveal" style="margin:0 auto">Напишите нам в WhatsApp, чтобы узнать подробности, расписание и стоимость.</p>
+    <a class="phone reveal wa-link" href="#" target="_blank" rel="noopener">+996 707 266 556</a><br>
+    <a class="btn btn-wa reveal wa-link" href="#" target="_blank" rel="noopener" style="font-size:18px;padding:18px 32px"><svg><use href="#i-wa"/></svg>Написать в WhatsApp</a>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>© <span id="yr"></span> ГОЛОС — презентация и ораторское искусство</span>
+    <span>
+      <a href="https://www.instagram.com/ullanumar/" target="_blank" rel="noopener">Улан Ибраимов</a> ·
+      <a href="https://www.instagram.com/tima_m.v/" target="_blank" rel="noopener">Тимерлан Макешев</a>
+    </span>
+  </div>
+</footer>
+
+<a class="fab wa-link" href="#" target="_blank" rel="noopener" aria-label="Написать в WhatsApp">
+  <span class="tip">Напишите нам!</span>
+  <svg><use href="#i-wa"/></svg>
+</a>
+
+<script>
+// WhatsApp links
+const WA = "996707266556";
+const DEFAULT_MSG = "Здравствуйте! Хочу узнать подробнее о курсе по презентации и ораторскому искусству.";
+document.querySelectorAll(".wa-link").forEach(a=>{
+  a.href = `https://wa.me/${WA}?text=${encodeURIComponent(a.dataset.msg || DEFAULT_MSG)}`;
+});
+document.getElementById("yr").textContent = new Date().getFullYear();
+
+const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+// Typewriter
+const words = ["выступать без страха.","делать сильные слайды.","держать внимание зала.","убеждать с первых слов."];
+const typed = document.getElementById("typed");
+let wi=0, ci=0, del=false;
+(function type(){
+  const w = words[wi];
+  typed.textContent = w.slice(0, ci);
+  if(!del && ci===w.length){ del=true; return setTimeout(type,1800); }
+  if(del && ci===0){ del=false; wi=(wi+1)%words.length; }
+  ci += del ? -1 : 1;
+  setTimeout(type, del ? 35 : 70);
+})();
+
+// Equalizer bars
+const eq = document.getElementById("eq");
+for(let i=0;i<32;i++){
+  const b=document.createElement("i");
+  b.style.animationDelay = (Math.random()*-1.2)+"s";
+  b.style.animationDuration = (0.8+Math.random()*0.8)+"s";
+  eq.appendChild(b);
+}
+
+// Hero sound-wave canvas
+const cv = document.getElementById("wave"), ctx = cv.getContext("2d");
+let W,H,t=0, mouseY=0.5;
+function size(){ W=cv.width=cv.offsetWidth*devicePixelRatio; H=cv.height=cv.offsetHeight*devicePixelRatio; }
+size(); addEventListener("resize",size);
+const colors=["124,92,255","255,79,163","45,226,196"];
+function draw(){
+  ctx.clearRect(0,0,W,H);
+  colors.forEach((c,k)=>{
+    ctx.beginPath();
+    const amp = H*(0.06+0.05*k)*(0.6+mouseY);
+    for(let x=0;x<=W;x+=6){
+      const p=x/W;
+      const env=Math.sin(p*Math.PI);
+      const y=H*0.62 + Math.sin(p*(8+k*3)+t*(1+k*.3))*amp*env + Math.sin(p*23-t*2)*amp*.25*env;
+      x?ctx.lineTo(x,y):ctx.moveTo(x,y);
+    }
+    ctx.strokeStyle=`rgba(${c},.55)`; ctx.lineWidth=2*devicePixelRatio; ctx.stroke();
+  });
+  t+=0.02;
+  if(!reduce) requestAnimationFrame(draw);
+}
+draw();
+
+// Cursor glow + scroll progress
+const glow=document.getElementById("glow"), prog=document.getElementById("progress");
+addEventListener("pointermove",e=>{
+  glow.style.left=e.clientX+"px"; glow.style.top=e.clientY+"px";
+  mouseY = e.clientY/innerHeight;
+});
+addEventListener("scroll",()=>{
+  const h=document.documentElement;
+  prog.style.width = (h.scrollTop/(h.scrollHeight-h.clientHeight))*100+"%";
+},{passive:true});
+
+// Scroll reveal
+const io=new IntersectionObserver(es=>es.forEach(e=>{
+  if(e.isIntersecting){ e.target.classList.add("in"); io.unobserve(e.target); }
+}),{threshold:.15});
+document.querySelectorAll(".reveal").forEach((el,i)=>{
+  el.style.transitionDelay = (i%6)*60+"ms";
+  io.observe(el);
+});
+
+// 3D tilt + spotlight
+if(matchMedia("(hover:hover)").matches && !reduce){
+  document.querySelectorAll(".tilt").forEach(el=>{
+    el.addEventListener("pointermove",e=>{
+      const r=el.getBoundingClientRect(), x=(e.clientX-r.left)/r.width, y=(e.clientY-r.top)/r.height;
+      el.style.setProperty("--mx",x*100+"%"); el.style.setProperty("--my",y*100+"%");
+      el.style.transform=`perspective(900px) rotateX(${(0.5-y)*6}deg) rotateY(${(x-0.5)*6}deg)`;
+    });
+    el.addEventListener("pointerleave",()=>{ el.style.transform=""; });
+  });
+}
+</script>
+</body>
+</html>
